@@ -6,7 +6,7 @@ Library    BleakLibrary.py
 ${DEVICE}    C7:30:C4:B6:A1:C9
 
 *** Test Cases ***
-Gather anb print to log
+Connect Disconnect with delay
     Connect    ${DEVICE}
     Sleep    10s
     Disconnect

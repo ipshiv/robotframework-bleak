@@ -8,7 +8,6 @@ class BleakLibrary:
         self.__client = None
         self.__loop = asyncio.get_event_loop()
         threading.Thread(target=self.runfunc).start()
-        # asyncio.run(self.__dummy_main())
 
     async def __dummy_main(self):
         while True:
@@ -29,14 +28,16 @@ class BleakLibrary:
 
     def connect(self, uuid) -> None:
         if not self.__client:
-            # self.__loop = asyncio.get_event_loop()
-            # self.__loop.create_task(self.__connect(uuid))
-            # run the asyncio-loop in background thread
-            # threading.Thread(target=self.runfunc).start()
-            # self.__loop = asyncio.get_event_loop()
             self.__loop.run_until_complete(self.__connect(uuid))
+            return self.__client.is_connected
+        else:
+            print("Already connected")
+            return True
 
     def disconnect(self) -> None:
         if self.__client:
             self.__loop.run_until_complete(self.__disconnect())
             self.__client = None
+            return True
+        else:
+            return False
